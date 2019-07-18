@@ -1,0 +1,36 @@
+select, input, option {
+    background: #343a40;
+    color: white;
+    &:focus{
+        color: white;
+        background: #343a40;
+    }
+}
+
+select{
+    &#rarity{
+    
+        &[ng-reflect-model=uncommon] { 
+            color: #1eff00;
+        }
+        &[ng-reflect-model=rare] { 
+            color: #0070ff;
+        }
+        &[ng-reflect-model=epic] { 
+            color: #a335ee;
+        }
+    }
+}
+option{
+    &[value=uncommon] { 
+        color: #1eff00;
+    }
+
+    &[value=rare] { 
+        color: #0070ff;
+    }
+    &[value=epic] { 
+        color: #a335ee;
+    }
+}
+

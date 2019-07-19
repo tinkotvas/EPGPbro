@@ -25,9 +25,31 @@
       </div>
     </div>
 
-    <div class="d-flex">
-      <h2>Cost: {{gpCostValue()}}</h2>
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label" for="item">Item</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="item" [(ngModel)]="itemSearch" name="item" (keyup)="searchTerm$.next($event.target.value)">
+      </div>
     </div>
 
+    <div class="form-group row">
+      <div class="col-2">
+        <h2>GP</h2>
+      </div>
+      <div class="col-10">
+        <h2>{{gpCostValue()}}</h2>
+      </div>
+
+    </div>
   </form>
+
+  <div *ngIf="suggestedItems">
+    <a *ngFor="let item of suggestedItems" (click)="choseItem(item.entry)">
+      {{ item.name }}
+    </a>
+    <!-- <p *ngFor="let item of suggestedItems" onclick="choseItem(item.entry)">
+        <a>{{ item.name }}</a>
+    </p> -->
+  </div>
+
 </div>

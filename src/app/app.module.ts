@@ -6,7 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GpcalcComponent } from './components/gpcalc/gpcalc.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,

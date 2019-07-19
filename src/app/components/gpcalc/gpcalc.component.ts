@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { SearchService } from '../../search-service.service';
+import { Subject } from 'rxjs';
+
 const itemSlots = [
   {
     name: 'Head, Chest, Legs, 2H Weapon',
@@ -32,22 +35,48 @@ const itemValues = {
   }
 };
 
+
 @Component({
   selector: 'app-gpcalc',
   templateUrl: './gpcalc.component.html',
-  styleUrls: ['./gpcalc.component.scss']
+  styleUrls: ['./gpcalc.component.scss'],
+  providers: [SearchService]
 })
 export class GpcalcComponent implements OnInit {
   itemSlots = itemSlots;
   itemValues = itemValues;
-  itemLevel = 1;
-  slotValue = this.itemSlots[0].value;
+  itemSearch = "";
   itemRarity = 'rare';
-  gpCost = 0;
+  slotValue = this.itemSlots[0].value;
+  selectedItem;
+  itemLevel = 1;
 
-  constructor() { }
 
-  ngOnInit() { }
+
+  suggestedItems;
+  searchTerm$ = new Subject<string>();
+
+  constructor(private searchService: SearchService) {
+    this.searchService.search(this.searchTerm$)
+    .subscribe((results:any) => {
+      this.suggestedItems = results;
+    });
+  }
+
+  ngOnInit() { 
+
+  }
+
+  choseItem(entry){
+    this.selectedItem = this.suggestedItems.filter(item => {
+      return item.entry === entry;
+    });
+    if(this.selectedItem.length > 0){
+      this.suggestedItems = [];
+      this.itemLevel = this.selectedItem[0].ItemLevel;
+      this.itemRarity = "epic"; //TODO
+    }
+  }
 
   gpCostValue()
   {

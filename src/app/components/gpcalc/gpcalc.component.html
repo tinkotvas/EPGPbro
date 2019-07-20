@@ -17,7 +17,7 @@
     </div>
   </form>
 
-  <div *ngIf="suggestedItems" style="margin-left:20px;margin-top:20px;">
+  <div *ngIf="suggestedItems" class="itemResult">
     <a *ngFor="let item of suggestedItems" (click)="choseItem(item.entry, $event)" href="" target='_blank'
       href='https://classicdb.ch/?item={{item.entry}}' rel='item={{item.entry}}' class="quality_{{item.Quality}}">
       {{ item.name }}

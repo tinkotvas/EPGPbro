@@ -24,7 +24,14 @@ export class SearchService {
   }
 
   searchEntries(term): any {
-    const regex = new RegExp(term, 'gi');
+    let regex;
+
+    try{
+      regex = new RegExp(term, 'gi');
+    }catch{
+      regex = new RegExp('', 'gi');
+    }
+
     return of(itemsJson.filter((item) => {
       return regex.test(item.name);
     }));

@@ -1,55 +1,26 @@
 <div class="d-flex flex-wrap">
-  <form style="margin-left:50px; margin-top:50px;" #gpcalcForm="ngForm">
+  <form>
     <div class="form-group row">
-      <label class="col-sm-2 col-form-label" for="slot">SLOT</label>
-      <div class="col-sm-10">
-        <select class="form-control" id="slot" required [(ngModel)]="slotValue" name="slot">
-          <option *ngFor="let slot of itemSlots" [value]="slot.value">{{slot.name}}</option>
-        </select>
+      <label class="col-sm-12 col-form-label" for="item">Search for item</label>
+      <div class="col-sm-12">
+        <input type="text" class="form-control" id="item" [(ngModel)]="itemSearch" name="item"
+          (keyup)="searchTerm$.next($event.target.value)">
       </div>
     </div>
-
     <div class="form-group row">
-      <label class="col-sm-2 col-form-label" for="slot">RARITY</label>
-      <div class="col-sm-10">
-        <select class="form-control" id="rarity" required [(ngModel)]="itemRarity" name="rarity">
-          <option *ngFor="let rarity of itemValues | keyvalue" [value]="rarity.key">{{rarity.key}}</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="form-group row">
-      <label class="col-sm-2 col-form-label" for="ilvl">iLvL</label>
-      <div class="col-sm-10">
-        <input type="number" class="form-control" id="ilvl" [(ngModel)]="itemLevel" name="ilvl" min=1>
-      </div>
-    </div>
-
-    <div class="form-group row">
-      <label class="col-sm-2 col-form-label" for="item">Item</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="item" [(ngModel)]="itemSearch" name="item" (keyup)="searchTerm$.next($event.target.value)">
-      </div>
-    </div>
-
-    <div class="form-group row">
-      <div class="col-2">
+      <div class="col-5">
         <h2>GP</h2>
       </div>
-      <div class="col-10">
-        <h2>{{gpCostValue()}}</h2>
+      <div class="col-7">
+        <h2>{{itemModel.gp}}</h2>
       </div>
-
     </div>
   </form>
 
-  <div *ngIf="suggestedItems">
-    <a *ngFor="let item of suggestedItems" (click)="choseItem(item.entry)">
+  <div *ngIf="suggestedItems" style="margin-left:20px;margin-top:20px;">
+    <a *ngFor="let item of suggestedItems | slice:0:10" (click)="choseItem(item.entry, $event)" href="" target='_blank'
+      href='https://classicdb.ch/?item={{item.entry}}' rel='item={{item.entry}}' class="quality_{{item.Quality}}">
       {{ item.name }}
     </a>
-    <!-- <p *ngFor="let item of suggestedItems" onclick="choseItem(item.entry)">
-        <a>{{ item.name }}</a>
-    </p> -->
   </div>
-
 </div>

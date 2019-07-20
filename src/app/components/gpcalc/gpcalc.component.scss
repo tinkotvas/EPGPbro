@@ -1,45 +1,42 @@
-select, input, option {
-    background: #343a40;
+select,
+input {
+  background: #343a40;
+  color: white;
+
+  &:focus {
     color: white;
-    &:focus{
-        color: white;
-        background: #343a40;
-    }
+    background: #343a40;
+  }
 }
 
-p{
-    margin:0;
+p {
+  margin: 0;
 }
 
-a{
-    display:block;
-    cursor: pointer;
+a {
+  display: block;
+  cursor: pointer;
 }
 
-select{
-    &#rarity{
-    
-        &[ng-reflect-model=uncommon] { 
-            color: #1eff00;
-        }
-        &[ng-reflect-model=rare] { 
-            color: #0070ff;
-        }
-        &[ng-reflect-model=epic] { 
-            color: #a335ee;
-        }
-    }
-}
-option{
-    &[value=uncommon] { 
-        color: #1eff00;
-    }
 
-    &[value=rare] { 
-        color: #0070ff;
-    }
-    &[value=epic] { 
-        color: #a335ee;
-    }
+
+.quality_5{
+    color: #ff8000;
+}
+.quality_4{
+    color: #a335ee;
+}
+.quality_3{
+    color: #0070ff;
+}
+.quality_2{
+    color: #1eff00;
+}
+.quality_1{
+    color: white;
 }
 
+.chosen{
+    font-size: 1.25em;
+    text-decoration: underline;
+}

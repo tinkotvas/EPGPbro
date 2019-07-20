@@ -7,20 +7,26 @@
           (keyup)="searchTerm$.next($event.target.value)">
       </div>
     </div>
-    <div class="form-group row">
+    <div *ngIf="itemModel.gp > 0" class="form-group row">
       <div class="col-5">
         <h2>GP</h2>
       </div>
       <div class="col-7">
-        <h2>{{itemModel.gp}}</h2>
+        <h2 id="gp" value='[{itemModel.gp}}'>{{itemModel.gp}}</h2>
       </div>
     </div>
+    <div *ngIf="itemModel.gp > 0" class="form-group row">
+        <div class="col-12">
+            <p>Double click on item in the result for details.</p>
+        </div>
+    </div>
   </form>
-
+  <form>
   <div *ngIf="suggestedItems" class="itemResult">
     <a *ngFor="let item of suggestedItems" (click)="choseItem(item.entry, $event)" href="" target='_blank'
       href='https://classicdb.ch/?item={{item.entry}}' rel='item={{item.entry}}' class="quality_{{item.Quality}}">
       {{ item.name }}
     </a>
   </div>
+  </form>
 </div>

@@ -18,6 +18,10 @@ a {
   cursor: pointer;
 }
 
+#gp{
+    color: yellow;
+}
+
 /* width */
 ::-webkit-scrollbar {
     width: 10px;
@@ -42,7 +46,8 @@ a {
     margin-left:20px;
     margin-top:20px;
     max-height:400px;
-    overflow-y:scroll;
+    overflow-y:auto;
+    min-width: 320px;
 }
 
 .quality_5{
@@ -62,6 +67,5 @@ a {
 }
 
 .chosen{
-    font-size: 1.25em;
     text-decoration: underline;
 }

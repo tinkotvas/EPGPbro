@@ -14,8 +14,9 @@ export class GpcalcComponent implements OnInit {
   itemModel = new Item();
   searchTerm$ = new Subject<string>();
   classToggle;
+  doubleClick;
 
-  @HostBinding('class') classes = 'container-fluid';
+  @HostBinding('class') classes = 'container-fluid result';
 
   constructor(private searchService: SearchService) {
     this.searchService.search(this.searchTerm$)
@@ -27,28 +28,21 @@ export class GpcalcComponent implements OnInit {
   ngOnInit() { }
 
   choseItem(entry, event){
+    event.preventDefault();
+    event.stopPropagation();
+    if(event.ctrlKey || this.doubleClick === entry){
+      window.open(event.target.href, '_blank')
+    }
     if(this.classToggle){
       this.classToggle.classList.remove('chosen');
     }
-    event.preventDefault();
-    event.stopPropagation();
+    this.doubleClick = entry;
     this.classToggle = event.target;
     event.target.classList.add('chosen')
-
-    if(event.ctrlKey){
-      window.open(event.target.href, '_blank')
-    }
     const found = this.suggestedItems.filter(item => {
       return item.entry === entry;
     });
 
-    this.itemModel = new Item({
-      entry: found[0].entry,
-      name: found[0].name,
-      ItemLevel: found[0].ItemLevel,
-      InventoryType: found[0].InventoryType,
-      Quality: found[0].Quality,
-      gp: found[0].gp
-    });
+    this.itemModel = new Item(found[0]);
   }
 }

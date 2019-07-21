@@ -45,3 +45,5 @@ testem.log
 .DS_Store
 Thumbs.db
 src/app/components/gpcalc/items_full.json
+*.key
+*.cert

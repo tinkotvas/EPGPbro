@@ -21,8 +21,13 @@ export class SearchService {
   }
 
   searchEntries(term): any {
-    return of(this.itemsJson.filter((item) => {
-      return (item.name).toLowerCase().includes(term.toLowerCase())
-    }));
+    return of(
+      this.itemsJson.filter(
+        (item) => {
+        return (item.name).toLowerCase().includes(term.toLowerCase())
+    }).sort(
+      (a, b)=>{ 
+        return b.ItemLevel - a.ItemLevel;
+     }).slice(0, 100));
   }
 }

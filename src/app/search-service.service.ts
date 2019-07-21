@@ -13,7 +13,11 @@ export class SearchService {
     // })))
   }
   itemsJson = require('./components/gpcalc/items.json');
-
+  filters = {
+    sixty: (i) => {
+      return i.RequiredLevel > 59;
+    }
+  };
   search(terms: Observable<any>, f?) {
     return terms.pipe(
       debounceTime(200),
@@ -24,19 +28,17 @@ export class SearchService {
     return of(
       this.itemsJson.filter(
         (item) => {
-          const filters = {
-            sixty: (i) => {
-              return i.RequiredLevel > 59;
-            }
-          };
-
           let filterPass = true;
-          try{
-            filterPass = filters[f](item);
-          }catch {}
-          try{
+          try
+          {
+            filterPass = this.filters[f](item);
+          } catch { }
+
+          try
+          {
             return ((item.name).toLowerCase().includes(term.toLowerCase()) && filterPass);
-          }catch{
+          } catch
+          {
             return false;
           }
         }).sort(

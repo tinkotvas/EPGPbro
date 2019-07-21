@@ -61,3 +61,8 @@ a {
 .chosen{
     text-decoration: underline;
 }
+
+.form-control:focus {
+  outline: 0;
+  box-shadow: none;
+}

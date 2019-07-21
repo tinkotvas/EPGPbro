@@ -51,7 +51,7 @@ export class GpcalcComponent implements OnInit {
     switch (e.key) {
       case 'Esc':
       case 'Escape':
-        e.target.value = "";
+        this.itemSearch = "";
         break;
       default:
         return;

@@ -34,8 +34,11 @@ export class SearchService {
           try{
             filterPass = filters[f](item);
           }catch {}
-
-          return ((item.name).toLowerCase().includes(term.toLowerCase()) && filterPass);
+          try{
+            return ((item.name).toLowerCase().includes(term.toLowerCase()) && filterPass);
+          }catch{
+            return false;
+          }
         }).sort(
           (a, b) => {
             return b.ItemLevel - a.ItemLevel;

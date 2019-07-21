@@ -42,7 +42,6 @@ export class GpcalcComponent implements OnInit {
     const found = this.suggestedItems.filter(item => {
       return item.entry === entry;
     });
-
     this.itemModel = new Item(found[0]);
   }
 }

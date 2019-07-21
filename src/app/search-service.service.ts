@@ -24,16 +24,8 @@ export class SearchService {
   }
 
   searchEntries(term): any {
-    let regex;
-
-    try{
-      regex = new RegExp(term, 'gi');
-    }catch{
-      regex = new RegExp('', 'gi');
-    }
-
     return of(itemsJson.filter((item) => {
-      return regex.test(item.name);
+      return (item.name).toLowerCase().includes(term.toLowerCase())
     }));
   }
 }

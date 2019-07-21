@@ -14,20 +14,31 @@ export class SearchService {
   }
   itemsJson = require('./components/gpcalc/items.json');
 
-  search(terms: Observable<any>) {
+  search(terms: Observable<any>, f?) {
     return terms.pipe(
-      debounceTime(100),
-      switchMap(term => this.searchEntries(term)));
+      debounceTime(200),
+      switchMap(term => this.searchEntries(term, f)));
   }
 
-  searchEntries(term): any {
+  searchEntries(term, f?): any {
     return of(
       this.itemsJson.filter(
         (item) => {
-        return (item.name).toLowerCase().includes(term.toLowerCase())
-    }).sort(
-      (a, b)=>{ 
-        return b.ItemLevel - a.ItemLevel;
-     }).slice(0, 100));
+          const filters = {
+            sixty: (i) => {
+              return i.RequiredLevel > 59;
+            }
+          };
+
+          let filterPass = true;
+          try{
+            filterPass = filters[f](item);
+          }catch {}
+
+          return ((item.name).toLowerCase().includes(term.toLowerCase()) && filterPass);
+        }).sort(
+          (a, b) => {
+            return b.ItemLevel - a.ItemLevel;
+          }).slice(0, 100));
   }
 }

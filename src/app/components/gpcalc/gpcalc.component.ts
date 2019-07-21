@@ -12,21 +12,51 @@ import { Item } from './item';
 export class GpcalcComponent implements OnInit {
   suggestedItems;
   itemModel = new Item();
+  itemSearch;
   searchTerm$ = new Subject<string>();
   classToggle;
   doubleClick;
+  filter = null;
+  filter60 = {
+    true: 'sixty',
+    false: null
+  };
+
+
+  searchSub;
 
   @HostBinding('class') classes = 'container-fluid result';
 
   constructor(private searchService: SearchService) {
-    this.searchService.search(this.searchTerm$)
+    this.setSubscribe();
+  }
+
+  setFilter(e){
+    this.filter = this.filter60[e.target.checked];
+    this.searchSub.unsubscribe();
+    this.setSubscribe();
+    this.searchTerm$.next(this.itemSearch);
+  }
+
+  ngOnInit() { }
+
+  setSubscribe(){
+    this.searchSub = this.searchService.search(this.searchTerm$, this.filter)
     .subscribe((results: any) => {
       this.suggestedItems = results;
     });
   }
 
-  ngOnInit() { }
-
+  inputKeyDown(e) {
+    switch (e.key) {
+      case 'Esc':
+      case 'Escape':
+        e.target.value = "";
+        break;
+      default:
+        return;
+    }
+  }
   choseItem(entry, event){
     event.preventDefault();
     event.stopPropagation();

@@ -6,6 +6,7 @@ export class Item {
   itemLevel: number;
   inventoryType: number;
   inventoryTypeValue: number;
+  requiredLevel: number;
   gp: number;
 
   constructor(
@@ -15,6 +16,7 @@ export class Item {
       Quality?: number,
       ItemLevel?: number,
       InventoryType?: number,
+      RequiredLevel?: number,
       gp?: number
     } = {}
   ) {
@@ -25,6 +27,7 @@ export class Item {
     this.itemLevel = p.ItemLevel || 0;
     this.inventoryType = p.InventoryType || 0;
     this.inventoryTypeValue = this.invTypeValue();
+    this.requiredLevel = p.RequiredLevel || 0;
     this.gp = p.gp || this.gpCostValue();
   }
 

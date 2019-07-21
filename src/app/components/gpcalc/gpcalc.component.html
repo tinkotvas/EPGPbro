@@ -1,10 +1,14 @@
 <div class="d-flex flex-wrap">
   <form>
     <div class="form-group row">
-      <label class="col-sm-12 col-form-label" for="item">Search for item</label>
+      <label class="col-sm-6 col-form-label" for="item">Search for item</label>
+      <label class="col-sm-4 col-form-label pr-0" for="sixty"><small style="float:right;">only 60&nbsp; </small></label>
+      <div class="col-sm-2 pl-0">
+          <input type="checkbox" class="form-control" id="sixty" style="max-width:20px;" name="sixty" (change)="setFilter($event)" />
+        </div>
       <div class="col-sm-12">
         <input type="text" class="form-control" id="item" [(ngModel)]="itemSearch" name="item"
-          (keyup)="searchTerm$.next($event.target.value)">
+          (keydown)="inputKeyDown($event)" (keyup)="searchTerm$.next($event.target.value)">
       </div>
     </div>
     <div *ngIf="itemModel.gp > 0" class="form-group row">
@@ -16,17 +20,17 @@
       </div>
     </div>
     <div *ngIf="itemModel.gp > 0" class="form-group row">
-        <div class="col-12">
-            <p>Double click on item in the result for details.</p>
-        </div>
+      <div class="col-12">
+        <p>Double click on item in the result for details.</p>
+      </div>
     </div>
   </form>
   <form>
-  <div *ngIf="suggestedItems" class="itemResult">
-    <a *ngFor="let item of suggestedItems" (click)="choseItem(item.entry, $event)" href="" target='_blank'
-      href='https://classicdb.ch/?item={{item.entry}}' rel='item={{item.entry}}' class="quality_{{item.Quality}}">
-      {{ item.name }}
-    </a>
-  </div>
+    <div *ngIf="suggestedItems" class="itemResult">
+      <a *ngFor="let item of suggestedItems" (click)="choseItem(item.entry, $event)" href="" target='_blank'
+        href='https://classicdb.ch/?item={{item.entry}}' rel='item={{item.entry}}' class="quality_{{item.Quality}}">
+        {{ item.name }}
+      </a>
+    </div>
   </form>
 </div>

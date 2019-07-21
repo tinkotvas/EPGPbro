@@ -40,6 +40,7 @@ export class Item {
         return 'epic';
         break;
       case 5:
+      case 6:
         return 'legendary';
         break;
     }
@@ -59,7 +60,7 @@ export class Item {
       return 0.7;
     } else if (it === 9 || it === 2 || it === 16 || it === 11 || it === 23 || it === 14) {
       // 'Wrist, Neck, Back, Finger, Off-hand, Shield',
-      return 55;
+      return 0.55;
     } else {
       // '1H Weapon, Ranged Weapon, Wand',
       return 0.42;
@@ -69,7 +70,7 @@ export class Item {
   gpCostValue() {
     let val = 0;
     const tq = this.quality;
-    if (tq === 4 || tq === 5) {
+    if (tq >= 4) {
       val = (this.itemLevel - 1.3) / 1.3; // epic
     } else if (tq === 3) {
       val = (this.itemLevel - 1.84) / 1.6; // rare

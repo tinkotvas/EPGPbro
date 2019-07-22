@@ -47,3 +47,4 @@ Thumbs.db
 src/app/components/gpcalc/items_full.json
 *.key
 *.cert
+config.toml

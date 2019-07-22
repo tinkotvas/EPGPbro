@@ -1,23 +1,27 @@
 import { Injectable } from '@angular/core';
-import { debounceTime, map, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { debounceTime, switchMap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
-import { Item } from './components/gpcalc/item';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class SearchService {
-  constructor() {
-    // console.log(JSON.stringify(itemsJson.map((item) => {
-    //   item.gp = (new Item(item).gp)
-    //   console.log(item.gp )
-    //   return item;
-    // })))
+  constructor(private http: HttpClient) {
+    this.getItems();
   }
-  itemsJson = require('./components/gpcalc/items.json');
+  public loading = true;
+  localItems;
   filters = {
     sixty: (i) => {
       return i.RequiredLevel > 59;
     }
   };
+
+  getItems() {
+    this.http.get('/items').subscribe(items => {
+      this.localItems = items;
+      this.loading = false;
+    });
+  }
   search(terms: Observable<any>, f?) {
     return terms.pipe(
       debounceTime(200),
@@ -25,17 +29,15 @@ export class SearchService {
   }
 
   searchEntries(term, f?): any {
-    return of(
-      this.itemsJson.filter(
+    return this.localItems == null ? of([]) : of(
+      this.localItems.filter(
         (item) => {
           let filterPass = true;
-          try
-          {
+          try {
             filterPass = this.filters[f](item);
           } catch { }
 
-          try
-          {
+          try {
             return ((item.name).toLowerCase().includes(term.toLowerCase()) && filterPass);
           } catch
           {

@@ -11,15 +11,15 @@
           (keydown)="inputKeyDown($event)" (keyup)="searchTerm$.next($event.target.value)">
       </div>
     </div>
-    <div *ngIf="itemModel.gp > 0" class="form-group row">
+    <div *ngIf="ITEM_MODEL.gp > 0" class="form-group row">
       <div class="col-5">
         <h2>GP</h2>
       </div>
       <div class="col-7">
-        <h2 id="gp" value='[{itemModel.gp}}'>{{itemModel.gp}}</h2>
+        <h2 id="gp" value='[{ITEM_MODEL.gp}}'>{{ITEM_MODEL.gp}}</h2>
       </div>
     </div>
-    <div *ngIf="itemModel.gp > 0" class="form-group row">
+    <div *ngIf="ITEM_MODEL.gp > 0" class="form-group row">
       <div class="col-12">
         <p>Double click on item in the result for details.</p>
       </div>
@@ -33,4 +33,5 @@
       </a>
     </div>
   </form>
+  <ngx-loading [show]="searchService.loading"></ngx-loading>
 </div>

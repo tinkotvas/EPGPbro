@@ -21,8 +21,12 @@
     "@angular/router": "~8.1.1",
     "bootstrap": "^4.3.1",
     "jquery": "^3.4.1",
+    "mysql2": "^1.6.5",
+    "ngx-loading": "^3.0.1",
     "popper.js": "^1.15.0",
     "rxjs": "~6.4.0",
+    "toml": "^3.0.0",
+    "toml-require": "^1.2.0",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"
   },
